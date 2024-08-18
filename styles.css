@@ -12,8 +12,8 @@ main {
 
 ul {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 80px;
   gap: 2.5rem;
   padding: 1rem;
 }
@@ -26,7 +26,8 @@ a {
   display: block;
   position: relative;
   z-index: 0;
-  padding: 2rem 1rem;
+  width: 100%;
+  height: 100%;
   background-color: #ffc4e5;
   color: #222;
   transform: translate(0, 0) rotateY(0) skewY(0);
@@ -119,15 +120,24 @@ a:hover span:nth-of-type(4)::after {
 }
 
 /*tablet*/
+@media (max-width: 1200px) {
+  ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*tablet*/
 @media (max-width: 1023px) {
   ul {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /*mobile*/
 @media (max-width: 700px) {
   ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 70px;
+    gap: 2.5rem;
   }
 }
