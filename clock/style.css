@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #acbaca;
+}
+
+a {
+  position: fixed;
+  left: 1em;
+  top: 1em;
+}
+
+.clock {
+  position: relative;
+  width: 20em;
+  aspect-ratio: 1/1;
+  background-color: #c9d5e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13%;
+  box-shadow: 2em 2em 2em -0.8em rgba(0, 0, 0, 0.15),
+    inset 1.2em 1.2em 0.8em rgba(255, 255, 255, 0.75),
+    -1.2em -1.2em 2.2em rgba(255, 255, 255, 0.55),
+    inset -0.1em -0.1em 0.8em rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+}
+
+.clock::before {
+  content: '';
+  position: absolute;
+  width: 0.12em;
+  height: 0.12em;
+  background: #e91e63;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.1em #e91e63, 0 0 0 0.2em white,
+    0 0 0.3em 0.3em rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.clock .numbers {
+  position: absolute;
+  inset: 2em;
+  background: #152b4a;
+  border-radius: 50%;
+  box-shadow: 0.4em 0.4em 1.2em #152b4a66,
+    inset 0.3em 0.3em 1em rgba(255, 255, 255, 0.55),
+    -0.4em -0.4em 0.8em rgba(255, 255, 255, 1);
+}
+
+.clock .numbers span {
+  position: absolute;
+  inset: 0.4em;
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+  transform: rotate(calc(90deg * var(--i)));
+}
+
+.clock .numbers span b {
+  font-weight: 600;
+  display: inline-block;
+  transform: rotate(calc(-90deg * var(--i)));
+}
+
+.clock .numbers::before {
+  content: '';
+  position: absolute;
+  inset: 2.22em;
+  background: linear-gradient(#2196f3, #e91e63);
+  border-radius: 50%;
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.clock .numbers::after {
+  content: '';
+  position: absolute;
+  inset: 2.5em;
+  background: #152b4a;
+  border-radius: 50%;
+}
+
+.clock .numbers .stick {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.clock .numbers .stick i {
+  position: absolute;
+  width: 0.2em;
+  height: 50%;
+  background: white;
+  transform-origin: bottom;
+}
+
+.clock .numbers .stick#hr i {
+  width: 0.25em;
+  transform: scaleY(0.3);
+}
+
+.clock .numbers .stick#mn i {
+  transform: scaleY(0.45);
+}
+
+.clock .numbers .stick#sc i {
+  width: 0.15em;
+  transform: scaleY(0.55);
+  background: #e91e63;
+  box-shadow: 0 1.8em 0 0 #e91e63;
+}
+
+@media screen and (max-width: 600px) {
+  .clock {
+    width: 80%;
+  }
+}
