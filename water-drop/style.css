@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #e0e0e0;
+}
+
+a {
+  position: fixed;
+  left: 1em;
+  top: 1em;
+}
+
+.pedestal {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5em;
+  border-radius: 1em;
+  box-shadow: 1em 1em 2em -0.8em rgba(0, 0, 0, 0.15),
+    inset 1em 1em 0.8em rgba(255, 255, 255, 0.75),
+    -1.2em -1.2em 2.2em rgba(255, 255, 255, 0.55),
+    inset -0.1em -0.1em 0.8em rgba(0, 0, 0, 0.2);
+}
+
+/* 
+ * Fancy Border Radius Generator 
+ * https://9elements.github.io/fancy-border-radius/ 
+ */
+.drop {
+  position: relative;
+  width: 10em;
+  aspect-ratio: 1/1;
+  background: transparent;
+  border-radius: 49% 51% 48% 52% / 38% 56% 44% 62%;
+  box-shadow: inset 0.6em 0.6em 0.6em rgba(0, 0, 0, 0.05),
+    0.9em 1.6em 0.6em rgba(0, 0, 0, 0.1), 0.9em 1.2em 1.2em rgba(0, 0, 0, 0.05),
+    inset -0.6em -0.6em 0.9em rgba(255, 255, 255, 0.9);
+}
+
+.drop::before {
+  content: '';
+  position: absolute;
+  top: 1.8em;
+  left: 2em;
+  width: 1.2em;
+  height: 1.2em;
+  background: white;
+  border-radius: 56% 44% 63% 37% / 50% 61% 39% 50%;
+  filter: blur(0.1em);
+}
+
+.drop::after {
+  content: '';
+  position: absolute;
+  top: 1.6em;
+  left: 3.8em;
+  width: 0.8em;
+  height: 0.8em;
+  background: white;
+  border-radius: 37% 63% 43% 57% / 51% 52% 48% 49%;
+  filter: blur(0.1em);
+}
+
+@media screen and (max-width: 600px) {
+  .pedestal {
+    font-size: 0.8rem;
+  }
+}
