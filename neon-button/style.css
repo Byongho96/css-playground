@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap');
 
 :root {
   --clr-neon: hsl(317 100% 54%);
@@ -16,6 +16,8 @@
 button {
   /** Reset button styles */
   background: none;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
 }
 
 body {
@@ -23,38 +25,35 @@ body {
   display: grid;
   place-items: center;
   background: var(--clr-bg-off);
-  font-family: 'Poppins', sans-serif;
   color: var(--clr-neon);
-  padding-right: 10rem;
+  font-family: 'Nunito', sans-serif;
 }
 
 a {
   position: fixed;
   left: 1em;
   top: 1em;
+  color: white;
 }
 
 .neon-button {
+  display: inline-block;
+  position: relative;
+  padding: 0.25em 1em;
+  border: var(--clr-neon-off) 0.125em solid;
+  border-radius: 0.25em;
+  color: var(--clr-neon-off);
   font-size: 4rem;
 
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--clr-neon-off);
-  border: var(--clr-neon-off) 0.125em solid;
-  padding: 0.25em 1em;
-  border-radius: 0.25em;
-
-  position: relative;
-
-  box-shadow: inset 0 0 0.5em 0 rgba(255, 255, 255, 0.318);
+  box-shadow: inset 0 0 0.5em 0 rgba(255, 255, 255, 0.082);
+  transition: all 10ms linear;
 }
 
 .neon-button::before {
   pointer-events: none;
   content: '';
   position: absolute;
-  background: #00000032;
+  background: #00000047;
   top: 150%;
   left: 50%;
   width: 110%;
@@ -62,31 +61,29 @@ a {
   border-radius: 50%;
   transform: translateX(-50%);
   filter: blur(0.15em);
-  opacity: 1;
 }
 
 .neon-button::after {
   content: '';
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  box-shadow: 0 0 2em 0.5em var(--clr-neon);
-  opacity: 0;
-  background-color: var(--clr-neon);
+  background-color: var(--clr-bg);
   z-index: -1;
+  opacity: 0;
   transition: opacity 100ms linear;
 }
 
 .neon-button:hover,
 .neon-button:focus {
-  color: white;
+  border-color: var(--clr-neon);
   background-color: var(--clr-neon);
-  border: var(--clr-neon) 0.125em solid;
-  text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em currentColor;
-  box-shadow: 0 0 0.5em 0 var(--clr-neon), 0 0 2em 0.5em var(--clr-neon);
-  animation: flickering 3s infinite alternate;
+  color: white;
+  text-shadow: 0 0 0.1em currentColor, 0 0 0.5em currentColor;
+  box-shadow: 0 0 2em 0.4em var(--clr-neon), 0 0 0.5em var(--clr-neon);
+  animation: flickering-button 3s infinite alternate;
 }
 
 .neon-button:hover::before,
@@ -102,16 +99,16 @@ a {
   transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
   filter: blur(1em);
   opacity: 0.7;
-  animation: flickering2 3s infinite alternate;
+  animation: flickering-shadow 3s infinite alternate;
 }
 
 .neon-button:hover::after,
 .neon-button:focus::after {
   opacity: 1;
-  animation: flickering3 3s infinite alternate;
+  animation: flickering-background 3s infinite alternate;
 }
 
-@keyframes flickering {
+@keyframes flickering-button {
   0%,
   19%,
   21%,
@@ -120,20 +117,24 @@ a {
   54%,
   56%,
   100% {
+    border-color: var(--clr-neon);
+    background-color: var(--clr-neon);
     color: white;
-    text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em currentColor;
-    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+    text-shadow: 0 0 0.1em currentColor, 0 0 0.5em currentColor;
+    box-shadow: 0 0 2em 0.4em var(--clr-neon), 0 0 0.5em var(--clr-neon);
   }
   20%,
   24%,
   55% {
+    border: var(--clr-neon-off) 0.125em solid;
+    border-radius: 0.25em;
     color: var(--clr-neon-off);
     text-shadow: none;
     box-shadow: none;
   }
 }
 
-@keyframes flickering2 {
+@keyframes flickering-shadow {
   0%,
   19%,
   21%,
@@ -151,7 +152,7 @@ a {
   }
 }
 
-@keyframes flickering3 {
+@keyframes flickering-background {
   0%,
   19%,
   21%,
@@ -166,5 +167,11 @@ a {
   24%,
   55% {
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .neon-button {
+    font-size: 2.5rem;
   }
 }
