@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flower List</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <ul id="spin" class="flower-list">
+        <li style="--i: 0; --clr: #ff0000">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 1; --clr: #ff4500"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 2; --clr: #ff7f00"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 3; --clr: #ffaa00"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 4; --clr: #ffff00"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 5; --clr: #a8ff00"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 6; --clr: #00ff00"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 7; --clr: #00ff80"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 8; --clr: #00ffff"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 9; --clr: #0080ff"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 10; --clr: #0000ff"></button>
+        </li>
+        <li>
+          <button class="flower-item" style="--i: 11; --clr: #8a00ff"></button>
+        </li>
+      </ul>
+    </div>
+    <script>
+      const element = document.getElementById('spin')
+      let isDragging = false
+      let initialAngle = 0
+      let currentAngle = 0
+      let velocity = 0
+
+      // 중심점 계산 (요소의 중앙)
+      const getCenter = (element) => {
+        const rect = element.getBoundingClientRect()
+        return {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        }
+      }
+
+      // 두 점 사이의 각도를 계산
+      const calculateAngle = (center, point) => {
+        return (
+          Math.atan2(point.y - center.y, point.x - center.x) * (180 / Math.PI)
+        )
+      }
+
+      element.addEventListener('mousedown', (event) => {
+        isDragging = true
+        const center = getCenter(element)
+        initialAngle = calculateAngle(center, {
+          x: event.clientX,
+          y: event.clientY,
+        })
+      })
+
+      document.addEventListener('mousemove', (event) => {
+        if (!isDragging) return
+
+        const center = getCenter(element)
+        const newAngle = calculateAngle(center, {
+          x: event.clientX,
+          y: event.clientY,
+        })
+
+        // 각도 변화량 계산
+        const deltaAngle = newAngle - initialAngle
+
+        // 회전 각도 업데이트
+        currentAngle += deltaAngle
+        element.style.setProperty('--rotateZ', `${currentAngle}deg`)
+
+        // 속도 업데이트
+        velocity = deltaAngle
+
+        initialAngle = newAngle
+      })
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false
+
+        // 감속 애니메이션 적용
+        const animate = () => {
+          if (Math.abs(velocity) < 0.1) return // 특정 속도 이하로 감속되면 중지
+          currentAngle += velocity
+          element.style.setProperty('--rotateZ', `${currentAngle}deg`)
+
+          // 감속 효과
+          velocity *= 0.95
+          requestAnimationFrame(animate)
+        }
+
+        animate()
+      })
+    </script>
+  </body>
+</html>
