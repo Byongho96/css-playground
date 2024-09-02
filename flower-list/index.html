@@ -7,47 +7,61 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <a href="../" class="back">Back</a>
     <div class="container">
-      <ul id="spin" class="flower-list">
+      <ul id="spin" class="flower-list" style="--rotateZ: 0">
         <li style="--i: 0; --clr: #ff0000">
           <button class="flower-item"></button>
           <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 1; --clr: #ff4500"></button>
+        <li style="--i: 1; --clr: #ff4500">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 2; --clr: #ff7f00"></button>
+        <li style="--i: 2; --clr: #ff7f00">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 3; --clr: #ffaa00"></button>
+        <li style="--i: 3; --clr: #ffaa00">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 4; --clr: #ffff00"></button>
+        <li style="--i: 4; --clr: #ffff00">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 5; --clr: #a8ff00"></button>
+        <li style="--i: 5; --clr: #a8ff00">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 6; --clr: #00ff00"></button>
+
+        <li style="--i: 6; --clr: #00ff00">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 7; --clr: #00ff80"></button>
+        <li style="--i: 7; --clr: #00ff80">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 8; --clr: #00ffff"></button>
+        <li style="--i: 8; --clr: #00ffff">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 9; --clr: #0080ff"></button>
+        <li style="--i: 9; --clr: #0080ff">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 10; --clr: #0000ff"></button>
+        <li style="--i: 10; --clr: #0000ff">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
-        <li>
-          <button class="flower-item" style="--i: 11; --clr: #8a00ff"></button>
+        <li style="--i: 11; --clr: #8a00ff">
+          <button class="flower-item"></button>
+          <span class="flower-shadow"></span>
         </li>
       </ul>
     </div>
+    <div class="test"></div>
     <script>
       const element = document.getElementById('spin')
       let isDragging = false
@@ -55,8 +69,10 @@
       let currentAngle = 0
       let velocity = 0
 
+      const center = { x: 0, y: 0 }
+
       // 중심점 계산 (요소의 중앙)
-      const getCenter = (element) => {
+      const resize = () => {
         const rect = element.getBoundingClientRect()
         return {
           x: rect.left + rect.width / 2,
@@ -64,26 +80,32 @@
         }
       }
 
-      // 두 점 사이의 각도를 계산
+      // 중심점으로부터 각도를 계산
       const calculateAngle = (center, point) => {
         return (
           Math.atan2(point.y - center.y, point.x - center.x) * (180 / Math.PI)
         )
       }
 
-      element.addEventListener('mousedown', (event) => {
+      const handleMouseDown = (event) => {
+        if (event instanceof TouchEvent) {
+          event = event.touches[0]
+        }
+
         isDragging = true
-        const center = getCenter(element)
         initialAngle = calculateAngle(center, {
           x: event.clientX,
           y: event.clientY,
         })
-      })
+      }
 
-      document.addEventListener('mousemove', (event) => {
+      const handleMouseMove = (event) => {
         if (!isDragging) return
 
-        const center = getCenter(element)
+        if (event instanceof TouchEvent) {
+          event = event.touches[0]
+        }
+
         const newAngle = calculateAngle(center, {
           x: event.clientX,
           y: event.clientY,
@@ -98,11 +120,10 @@
 
         // 속도 업데이트
         velocity = deltaAngle
-
         initialAngle = newAngle
-      })
+      }
 
-      document.addEventListener('mouseup', () => {
+      const handleMouseUp = () => {
         isDragging = false
 
         // 감속 애니메이션 적용
@@ -117,7 +138,17 @@
         }
 
         animate()
-      })
+      }
+
+      resize()
+
+      window.addEventListener('resize', resize)
+      element.addEventListener('mousedown', handleMouseDown)
+      element.addEventListener('touchstart', handleMouseDown)
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('touchmove', handleMouseMove)
+      window.addEventListener('mouseup', handleMouseUp)
+      window.addEventListener('touchend', handleMouseUp)
     </script>
   </body>
 </html>
