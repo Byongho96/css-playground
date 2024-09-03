@@ -27,8 +27,8 @@ button {
 
 .container {
   position: relative;
-  width: 20em;
-  height: 20em;
+  width: 27em;
+  height: 27em;
 }
 
 .flower-list {
@@ -46,21 +46,22 @@ button {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+    pointer-events: none;
   }
 }
 
 .flower-item {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  height: 50%;
+  height: 40%;
   aspect-ratio: 2/5;
   background-color: var(--clr);
   border-radius: 50%;
-  transform-origin: bottom;
-  transform: translateX(-50%) rotate(calc(30deg * var(--i))) translateY(-20%)
-    translateZ(70px);
+  transform: translate(-50%, -50%) rotate(calc(30deg * var(--i)))
+    translateY(-70%);
   opacity: 0.5;
+  pointer-events: auto;
 
   &:hover,
   &:focus {
@@ -69,27 +70,26 @@ button {
 
   &:hover + span,
   &:focus + span {
-    opacity: 0.6;
+    opacity: 0.7;
   }
 }
 
 .flower-shadow {
   content: '';
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  height: 50%;
+  height: 40%;
   aspect-ratio: 2/5;
   background-color: rgba(58, 58, 58, 0.148);
   border-radius: 50%;
-  transform-origin: bottom;
-  transform: translateX(-50%) rotate(calc(30deg * var(--i))) translateY(-25%)
-    scale(0.9);
+  transform: translate(-50%, -50%) rotate(calc(30deg * var(--i)))
+    translateY(-65%) translateZ(-120px) scale(0.9);
   opacity: 0.4;
 }
 
 @media screen and (max-width: 768px) {
   body {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
